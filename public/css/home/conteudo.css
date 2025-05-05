@@ -1,0 +1,28 @@
+
+
+.conteudo{
+  width: 100%;
+  height: 850px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  color: var(--corPrincipalFonte);
+}
+
+/* .conteudo::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 500px;
+  background-color: var(--corSecundaria);
+  transform: rotate(-25deg);
+  top: 50%;
+  left: -30%;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.conteudo:hover::before {
+  opacity: 1;
+} */

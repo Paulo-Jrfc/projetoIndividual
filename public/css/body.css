@@ -1,0 +1,14 @@
+body {
+    margin: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+:root {
+    --corPrincipalFonte: #0d122a;
+
+    --corPrincipal: #0d122a;
+    --corSecundaria: #007bff;
+}
