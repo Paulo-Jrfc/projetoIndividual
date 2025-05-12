@@ -64,3 +64,5 @@ insert into aquario (descricao, fk_empresa) values ('Aquário de Peixe-dourado',
 
 SELECT * from aquario;
 SELECT * FROM empresa;
+SELECT * FROM usuario;
+ALTER TABLE usuario ADD COLUMN cpf CHAR(11);
