@@ -1,0 +1,71 @@
+.login {
+    width: 80%;
+    height: 630px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid var(--corPrincipal);
+    border-radius: 15px;
+
+}
+
+
+
+.slogan {
+    width: 35%;
+    height: 100%;
+    background-color: lightblue;
+    text-align: center;
+    color: var(--corPrincipal);
+    border-radius: 15px 0 0 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.slogan p {
+    margin-top: -25px;
+}
+
+
+.formulario {
+    width: 65%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.formulario p {
+    margin-top: -25px;
+}
+
+.campo {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.campo span {
+    color: var(--corPrincipal);
+    margin-top: 10px;
+}
+
+.campo input,
+select {
+    height: 30px;
+    width: 100%;
+    margin-bottom: 15px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid var(--corPrincipal);
+    outline: none;
+}
+
+.formulario .botao {
+    width: 70%;
+    height: 30px;
+}

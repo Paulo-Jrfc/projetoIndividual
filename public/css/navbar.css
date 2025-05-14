@@ -24,6 +24,7 @@
 }
 .navbar-esquerda span:hover{
     cursor: pointer;
+    border-bottom: 2px solid var(--corPrincipal);
 }
 
 .navbar-direita {
@@ -50,7 +51,7 @@
 
 .navbar-links a:hover {
     cursor: pointer;
-    color: var(--corSecundaria);
+    border-bottom: 2px solid var(--corPrincipal);
 }
 
 .logo {
