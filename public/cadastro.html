@@ -38,7 +38,7 @@
       <p>Dirigindo a sua escolha.</p>
       <img src="" alt="LOGO">
     </div>
-    <div class="formulario">
+    <form class="formulario">
       <!--
                          Para inserir mais um campo, copie uma das inputs abaixo.
                          Assim que inserir vá para o script abaixo.
@@ -48,23 +48,23 @@
 
       <div class="campo">
         <span>Nome:</span>
-        <input id="nome_input" type="text" placeholder="Seu nome" />
+        <input id="nome_input" type="text" value="Paulo" placeholder="Seu nome" />
       </div>
       <div class="campo">
         <span>Data de Nascimento:</span>
-        <input id="dataNascimento_input" type="date"/>
+        <input id="dataNascimento_input" value="2006/05/25" type="text" />
       </div>
       <div class="campo">
         <span>E-mail:</span>
-        <input id="email_input" type="text" placeholder="meuemail@provedor.com" />
+        <input id="email_input" value="paulo@gmail.com" type="text" placeholder="meuemail@provedor.com" />
       </div>
       <div class="campo">
         <span>Senha:</span>
-        <input id="senha_input" type="password" placeholder="******" />
+        <input id="senha_input" value="1234567" type="password" placeholder="******" />
       </div>
       <div class="campo">
         <span>Confirmação da Senha:</span>
-        <input id="confirmacao_senha_input" type="password" placeholder="******" />
+        <input id="confirmacao_senha_input" value="1234567" type="password" placeholder="******" />
       </div>
       <div class="campo">
         <span>Já possuiu um veiculo?</span>
@@ -74,7 +74,7 @@
         </select>
       </div>
       <button class="botao" onclick="cadastrar()">Cadastrar</button>
-    </div>
+    </form>
 
 
     <div id="div_erros_login"></div>
@@ -108,19 +108,23 @@
 
     if (nomeVar.length <= 1) {
       alert('Insira um nome com mais de 1 digito')
+      return false;
     }
 
     if (!emailVar.includes('@') && !emailVar.includes('.')) {
       alert('O email deve conter @ e .')
+      return false;
     }
-  
 
-    if (senhaVar <= 6) {
+
+    if (senhaVar.length <= 6) {
       alert('A senha deve conter mais que 7 digitos')
+      return false;
     }
 
     if (senhaVar != confirmacaoSenhaVar) {
       alert('A senha informada é difente da confirmação de senha!')
+      return false;
     }
 
 
@@ -138,26 +142,24 @@
       mensagem_erro.innerHTML =
         "(Mensagem de erro para todos os campos em branco)";
 
-      
+
       return false;
     } else if (nomeVar.length <= 1) {
       alert('Insira um nome com mais de 1 digito')
-      
+
       return false;
     } else if (!emailVar.includes('@') && !emailVar.includes('.')) {
       alert('O email deve conter @ e .')
-      
+
       return false;
-    }else if (senhaVar <= 6) {
+    } else if (senhaVar <= 6) {
       alert('A senha deve conter mais que 7 digitos')
-      
+
       return false;
     } else if (senhaVar != confirmacaoSenhaVar) {
       alert('A senha informada é difente da confirmação de senha!')
-      
+
       return false;
-    } else {
-      setInterval(5000);
     }
 
     // Enviando o valor da nova input
@@ -188,14 +190,14 @@
           setTimeout(() => {
             window.location = "login.html";
           }, "2000");
-          
+
         } else {
-          throw "Houve um erro ao tentar realizar o cadastro!";
+          throw `Houve um erro ao tentar realizar o cadastro!`;
         }
       })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
-        
+
       });
 
     return false;
