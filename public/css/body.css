@@ -5,6 +5,8 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    color: var(--corPrincipal);
+    text-align: justify;
 }
 
 :root {
