@@ -34,6 +34,16 @@
   align-items: center;
 }
 
+.sobrecarros .titulo h1{
+  text-align: center;
+  margin-top: 50px;
+}
+
+.sobrecarros .titulo h3{
+  text-align: center;
+  margin-top: -20px;
+}
+
 
 .sobrecarros .conteudoSobreCarros {
   height: 90%;
@@ -61,11 +71,42 @@
 
 
 .conteudoSobreCarros .imagem img {
-  width: 260px;
+  margin: 25px;
+  width: 290px;
   height: 260px;
-  padding: 25px;
+  border-radius: 25px;
+  border: 1px solid var(--corPrincipalFonte);
 }
 
 .conteudoSobreCarros .texto p{
   width: 90%;
+}
+
+.sobrecarros .cards{
+  width: 100%;
+  height: 450px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.sobrecarros .cards .card{
+  border: 2px solid var(--corPrincipalFonte);
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  width: 250px;
+  height: 85%;
+  padding: 10px;
+  
+}
+.sobrecarros .cards .card p{
+  margin: 5px;
+}
+.sobrecarros .cards .card img{
+  width: 230px;
+  height: 230px;
+  margin: auto;
+  border-radius: 5px;
 }
