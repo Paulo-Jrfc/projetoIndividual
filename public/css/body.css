@@ -1,3 +1,7 @@
+@font-face {
+    font-family: 'Poppins-Regular';
+    src: url(../fontes/poppins/Poppins-Regular.ttf);
+}
 body {
     margin: 0;
     width: 100%;
@@ -7,6 +11,7 @@ body {
     flex-direction: column;
     color: var(--corPrincipal);
     text-align: justify;
+    font-family: 'Poppins-Regular', sans-serif;
 }
 
 :root {

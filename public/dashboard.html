@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="css/body.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="navBarLateral">
+            <h1>VEEZY</h1>
+            <div>
+                <p>Seja bem vindo,</p>
+                <p>Paulo Junior</p>
+            </div>
+            <div>
+                <div class="botao">
+                    <img src="../imagens/dashboardIcone.png" alt="icone">
+                    <p>Dashboard</p>
+                </div>
+                <div class="botao">
+                    <img src="" alt="icone">
+                    <p>Statistics</p>
+                </div>
+                <div class="botao">
+                    <img src="" alt="icone">
+                    <p>Reports</p>
+                </div>
+            </div>
+            <div>
+                <div class="botao">
+                    <img src="../imagens/logoutIcone.svg" alt="icone">
+                    <p>Sair</p>
+                </div>
+            </div>
+        </div>
+        <div class="conteudo">
+            <div class="titulo-conteudo">
+                <h2>Painel de indicadores</h2>
+            </div>
+            <div class="kpis">
+                <div class="kpi">
+                    <p class="titulo">Usuários cadastrados:</p>
+                    <p class="dadoKpi">53 usuários</p>
+                </div>
+                <div class="kpi">
+                    <p class="titulo">Marca menos recomendada:</p>
+                    <p class="dadoKpi">Citroën</p>
+                </div>
+                <div class="kpi">
+                    <p class="titulo">Categoria mais procurada</p>
+                    <p class="dadoKpi">SUV</p>
+                </div>
+            </div>
+            
+            <div class="graficos">
+                <div class="grafico2">
+                    <p>Histórico veicular</p>
+                    <div style="width: 100%; height: 80%;">
+                        <canvas style="width: 100%; height: 100%;" id="grafico2"></canvas>
+                    </div>
+                </div>
+                <div class="grafico1">
+                    <p>Visitantes que mais preencheram o formulário</p>
+                    <div style="width: 100%; height: 80%;">
+                        <canvas style="width: 100%; height: 100%;" id="graficoBarra1"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="grafico3">
+                <p>Marcas mais recomendadas</p>
+                <div style="width: 100%; height: 80%;">
+                    <canvas style="width: 100%; height: 100%;" id="graficoBarra3"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+<script>
+
+    // Gráfico 1
+    var nomes = ['Paulo Junior', 'Guilherme de Andrade', 'Marcos']
+    var quantidadesPreenchidas = [10, 15, 20];
+
+    var graficoBarra1 = new Chart(document.getElementById('graficoBarra1').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: nomes,
+            datasets: [{
+                data: quantidadesPreenchidas,
+                label: 'Quantidade de preenchimento do formulário',
+                backgroundColor: '#24ffaa'
+            }]
+        },
+        options: {
+            scales: {
+                x: {
+                    beginAtZero: true
+                },
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    // Gráfico 2
+    var primeiroCarro = [30]
+    var jaTeveCarros = [20]
+    var grafico2 = new Chart(document.getElementById('grafico2').getContext('2d'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Experiência prévia com automóveis', 'Início na vida automotiva'],
+            datasets: [{
+                data: [primeiroCarro, jaTeveCarros],
+                backgroundColor: ['#2e50ff', '#a6a6a6']
+            }]
+        },  
+        options: {
+            
+        }
+    });
+
+
+    // Gráfico 3
+    var quantidadeRecomendada = [10, 15, 20, 30, 40];
+    var marcaRecomendada = ['Volkswagen', 'Chevrolet', 'Fiat', 'Honda', 'Toyota']
+
+    var graficoBarra3 = new Chart(document.getElementById('graficoBarra3').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: marcaRecomendada,
+            datasets: [{
+                data: quantidadeRecomendada,
+                label: 'Quantidade de vezes da recomendação',
+                borderColor: '#8c52ff',
+                backgroundColor: '#8c52ff'
+            }]
+        },
+        options: {
+            scales: {
+                x: {
+                    beginAtZero: true
+                },
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+
+
+</script>
