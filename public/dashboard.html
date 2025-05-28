@@ -8,6 +8,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="css/body.css">
+    <link rel="stylesheet" href="css/estruturaLogado.css">
     <link rel="stylesheet" href="css/dashboard.css">
 
 </head>
@@ -59,18 +60,18 @@
                     <p class="dadoKpi">SUV</p>
                 </div>
             </div>
-            
+
             <div class="graficos">
                 <div class="grafico2">
                     <p>Histórico veicular</p>
                     <div style="width: 100%; height: 80%;">
-                        <canvas style="width: 100%; height: 100%;" id="grafico2"></canvas>
+                        <canvas style="width: 100%; height: 100%;" id="grafico1"></canvas>
                     </div>
                 </div>
                 <div class="grafico1">
                     <p>Visitantes que mais preencheram o formulário</p>
                     <div style="width: 100%; height: 80%;">
-                        <canvas style="width: 100%; height: 100%;" id="graficoBarra1"></canvas>
+                        <canvas style="width: 100%; height: 100%;" id="graficoBarra2"></canvas>
                     </div>
                 </div>
             </div>
@@ -89,10 +90,44 @@
 <script>
 
     // Gráfico 1
+    function colerDadosGrafico1() {
+        fetch('/dashboard/historicoVeicular', { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    plotarGrafico1(resposta)
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarGrafico1(resposta) {
+        var grafico2 = new Chart(document.getElementById('grafico1').getContext('2d'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Experiência prévia com automóveis', 'Início na vida automotiva'],
+                        datasets: [{
+                            data: [resposta[0].quantidade, 0],
+                            backgroundColor: ['#2e50ff', '#a6a6a6']
+                        }]
+                    },
+                    options: {
+
+                    }
+                });
+    }
+
+    // Gráfico 2
     var nomes = ['Paulo Junior', 'Guilherme de Andrade', 'Marcos']
     var quantidadesPreenchidas = [10, 15, 20];
 
-    var graficoBarra1 = new Chart(document.getElementById('graficoBarra1').getContext('2d'), {
+    var graficoBarra1 = new Chart(document.getElementById('graficoBarra2').getContext('2d'), {
         type: 'bar',
         data: {
             labels: nomes,
@@ -111,22 +146,6 @@
                     beginAtZero: true
                 }
             }
-        }
-    });
-    // Gráfico 2
-    var primeiroCarro = [30]
-    var jaTeveCarros = [20]
-    var grafico2 = new Chart(document.getElementById('grafico2').getContext('2d'), {
-        type: 'doughnut',
-        data: {
-            labels: ['Experiência prévia com automóveis', 'Início na vida automotiva'],
-            datasets: [{
-                data: [primeiroCarro, jaTeveCarros],
-                backgroundColor: ['#2e50ff', '#a6a6a6']
-            }]
-        },  
-        options: {
-            
         }
     });
 
