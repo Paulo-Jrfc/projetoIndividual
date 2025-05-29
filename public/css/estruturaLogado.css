@@ -14,7 +14,14 @@
     color: white;
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
+
     align-items: center;
+}
+
+#logo{
+    width: 150px;
+    height: 150px;
 }
 
 /* Conteudo */
@@ -38,4 +45,16 @@
     margin: 0;
     padding: 2px;
     color: white;
+}
+
+.botao {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+.botao img {
+    width: 30px;
+    height: 30px;
 }

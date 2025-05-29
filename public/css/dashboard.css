@@ -10,7 +10,7 @@
 
 .kpi {
     width: 25%;
-    background-image: linear-gradient(to right, #000b42, #142370);
+    background-color: #000b42;
     height: 60%;
     color: white;
     border-radius: 15px;

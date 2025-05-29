@@ -16,28 +16,29 @@
 <body onload="colerDadosGrafico1(), colerDadosGrafico2(), colerDadosGrafico3()">
     <div class="container">
         <div class="navBarLateral">
-            <h1>VEEZY</h1>
             <div>
+                <img id="logo" src="../imagens/veezyBranco.png" alt="">
                 <p>Seja bem vindo,</p>
-                <p>Paulo Junior</p>
+                <p><span id="b_usuario">usuário</span>!</p>
+
             </div>
             <div>
                 <div class="botao">
-                    <img src="" alt="icone">
+                    <img src="../imagens/dashboardIcone.png" alt="dashboardIcone">
                     <p>Dashboard</p>
                 </div>
                 <div class="botao">
                     <img src="" alt="icone">
-                    <p>Statistics</p>
+                    <p>Buscar</p>
                 </div>
                 <div class="botao">
                     <img src="" alt="icone">
-                    <p>Reports</p>
+                    <p>Veiculos</p>
                 </div>
             </div>
             <div>
                 <div class="botao">
-                    <img src="" alt="icone">
+                    <img src="../imagens/logoutIcone.svg" alt="icone">
                     <p>Sair</p>
                 </div>
             </div>
@@ -88,6 +89,8 @@
 
 </html>
 <script>
+
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
     // Gráfico 1
     function colerDadosGrafico1() {
@@ -216,7 +219,7 @@
 
     function plotarGrafico3(resposta) {
 
-        var quantidadeRecomendada = [resposta[0].total_recomendacoes, resposta[1].total_recomendacoes, resposta[2].total_recomendacoes, resposta[3].total_recomendacoes,resposta[4].total_recomendacoes];
+        var quantidadeRecomendada = [resposta[0].total_recomendacoes, resposta[1].total_recomendacoes, resposta[2].total_recomendacoes, resposta[3].total_recomendacoes, resposta[4].total_recomendacoes];
         var marcaRecomendada = [resposta[0].marca.split(" ")[0], resposta[1].marca.split(" ")[0], resposta[2].marca.split(" ")[0], resposta[3].marca.split(" ")[0], resposta[4].marca.split(" ")[0]]
 
         console.log(quantidadeRecomendada)
