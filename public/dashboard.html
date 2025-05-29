@@ -13,7 +13,7 @@
 
 </head>
 
-<body>
+<body onload="colerDadosGrafico1(), colerDadosGrafico2(), colerDadosGrafico3()">
     <div class="container">
         <div class="navBarLateral">
             <h1>VEEZY</h1>
@@ -23,7 +23,7 @@
             </div>
             <div>
                 <div class="botao">
-                    <img src="../imagens/dashboardIcone.png" alt="icone">
+                    <img src="" alt="icone">
                     <p>Dashboard</p>
                 </div>
                 <div class="botao">
@@ -37,7 +37,7 @@
             </div>
             <div>
                 <div class="botao">
-                    <img src="../imagens/logoutIcone.svg" alt="icone">
+                    <img src="" alt="icone">
                     <p>Sair</p>
                 </div>
             </div>
@@ -91,12 +91,14 @@
 
     // Gráfico 1
     function colerDadosGrafico1() {
-        fetch('/dashboard/historicoVeicular', { cache: 'no-store' }).then(function (response) {
+        var respostaSim = 0;
+        var respostaNao = 0;
+
+        fetch('/dashboard/historicoVeicularSim', { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
-
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                    plotarGrafico1(resposta)
+                    respostaSim = resposta[0].quantidadeSim
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
@@ -105,78 +107,144 @@
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
+
+        fetch('/dashboard/historicoVeicularNao', { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    respostaNao = resposta[0].quantidadeNao
+                    plotarGrafico1(respostaSim, respostaNao)
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
     }
 
-    function plotarGrafico1(resposta) {
-        var grafico2 = new Chart(document.getElementById('grafico1').getContext('2d'), {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Experiência prévia com automóveis', 'Início na vida automotiva'],
-                        datasets: [{
-                            data: [resposta[0].quantidade, 0],
-                            backgroundColor: ['#2e50ff', '#a6a6a6']
-                        }]
-                    },
-                    options: {
 
-                    }
-                });
+    function plotarGrafico1(respostaSim, respostaNao) {
+        var grafico2 = new Chart(document.getElementById('grafico1').getContext('2d'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Experiência prévia com automóveis', 'Início na vida automotiva'],
+                datasets: [{
+                    data: [respostaSim, respostaNao],
+                    backgroundColor: ['#2e50ff', '#a6a6a6']
+                }]
+            },
+            options: {
+
+            }
+        });
     }
 
     // Gráfico 2
-    var nomes = ['Paulo Junior', 'Guilherme de Andrade', 'Marcos']
-    var quantidadesPreenchidas = [10, 15, 20];
 
-    var graficoBarra1 = new Chart(document.getElementById('graficoBarra2').getContext('2d'), {
-        type: 'bar',
-        data: {
-            labels: nomes,
-            datasets: [{
-                data: quantidadesPreenchidas,
-                label: 'Quantidade de preenchimento do formulário',
-                backgroundColor: '#24ffaa'
-            }]
-        },
-        options: {
-            scales: {
-                x: {
-                    beginAtZero: true
-                },
-                y: {
-                    beginAtZero: true
+
+
+    function colerDadosGrafico2() {
+
+        fetch('/dashboard/visitantesQueMaisPreencheram', { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    plotarGrafico2(resposta)
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+
+
+    function plotarGrafico2(resposta) {
+        var nomes = [resposta[0].nome.split(" ")[0], resposta[1].nome.split(" ")[0], resposta[2].nome.split(" ")[0]]
+        var quantidadesPreenchidas = [resposta[0].total_veiculos, resposta[1].total_veiculos, resposta[2].total_veiculos]
+
+        var graficoBarra1 = new Chart(document.getElementById('graficoBarra2').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: nomes,
+                datasets: [{
+                    data: quantidadesPreenchidas,
+                    label: 'Quantidade de preenchimento do formulário',
+                    backgroundColor: '#24ffaa'
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
-        }
-    });
+        });
+    }
+
 
 
     // Gráfico 3
-    var quantidadeRecomendada = [10, 15, 20, 30, 40];
-    var marcaRecomendada = ['Volkswagen', 'Chevrolet', 'Fiat', 'Honda', 'Toyota']
+    function colerDadosGrafico3() {
 
-    var graficoBarra3 = new Chart(document.getElementById('graficoBarra3').getContext('2d'), {
-        type: 'bar',
-        data: {
-            labels: marcaRecomendada,
-            datasets: [{
-                data: quantidadeRecomendada,
-                label: 'Quantidade de vezes da recomendação',
-                borderColor: '#8c52ff',
-                backgroundColor: '#8c52ff'
-            }]
-        },
-        options: {
-            scales: {
-                x: {
-                    beginAtZero: true
-                },
-                y: {
-                    beginAtZero: true
+        fetch('/dashboard/marcaMaisRecomendada', { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    plotarGrafico3(resposta)
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+
+    function plotarGrafico3(resposta) {
+
+        var quantidadeRecomendada = [resposta[0].total_recomendacoes, resposta[1].total_recomendacoes, resposta[2].total_recomendacoes, resposta[3].total_recomendacoes,resposta[4].total_recomendacoes];
+        var marcaRecomendada = [resposta[0].marca.split(" ")[0], resposta[1].marca.split(" ")[0], resposta[2].marca.split(" ")[0], resposta[3].marca.split(" ")[0], resposta[4].marca.split(" ")[0]]
+
+        console.log(quantidadeRecomendada)
+        console.log(marcaRecomendada)
+
+
+        var graficoBarra3 = new Chart(document.getElementById('graficoBarra3').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: marcaRecomendada,
+                datasets: [{
+                    data: quantidadeRecomendada,
+                    label: 'Quantidade de vezes da recomendação',
+                    borderColor: '#8c52ff',
+                    backgroundColor: '#8c52ff'
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
-        }
-    });
-
-
+        });
+    }
 
 </script>
