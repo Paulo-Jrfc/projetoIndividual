@@ -13,28 +13,35 @@
 
 </head>
 
-<body onload="colerDadosGrafico1(), colerDadosGrafico2(), colerDadosGrafico3()">
+<body onload="colerDadosGrafico1(), colerDadosGrafico2(), colerDadosGrafico3(), coletarDadosKpiUsuariosRecentes(), 
+coletarDadosKpiMarcaMenosRecomendada(), coletarDadosKpiCategoriaMaisProcurada()">
     <div class="container">
         <div class="navBarLateral">
             <div>
-                <img id="logo" src="../imagens/veezyBranco.png" alt="">
+                <img id="logo" src="./imagens/veezyBranco.png" alt="">
                 <p>Seja bem vindo,</p>
                 <p><span id="b_usuario">usuário</span>!</p>
 
             </div>
             <div>
-                <div class="botao">
-                    <img src="../imagens/dashboardIcone.png" alt="dashboardIcone">
-                    <p>Dashboard</p>
-                </div>
-                <div class="botao">
-                    <img src="../imagens/searchIcon.png" alt="icone">
-                    <p>Buscar</p>
-                </div>
-                <div class="botao">
-                    <img src="../imagens/carIcon.png" alt="icone">
-                    <p>Veiculos</p>
-                </div>
+                <a href="dashboard.html">
+                    <div class="botao selecionado">
+                        <img src="./imagens/dashboardIcone.png" alt="dashboardIcone">
+                        <p>Dashboard</p>
+                    </div>
+                </a>
+                <a href="buscarVeiculo.html">
+                    <div class="botao">
+                        <img src="./imagens/searchIcon.png" alt="icone">
+                        <p>Buscar</p>
+                    </div>
+                </a>
+                <a href="veiculosRecomendados.html">
+                    <div class="botao">
+                        <img src="./imagens/carIcon.png" alt="icone">
+                        <p>Veiculos</p>
+                    </div>
+                </a>
             </div>
             <div>
                 <div class="botao">
@@ -49,16 +56,16 @@
             </div>
             <div class="kpis">
                 <div class="kpi">
-                    <p class="titulo">Usuários cadastrados:</p>
-                    <p class="dadoKpi">53 usuários</p>
+                    <p class="titulo">Cadastrados ultima semana:</p>
+                    <p class="dadoKpi" id="kpiUsuariosRecentes"></p>
                 </div>
                 <div class="kpi">
                     <p class="titulo">Marca menos recomendada:</p>
-                    <p class="dadoKpi">Citroën</p>
+                    <p class="dadoKpi" id="kpiMarcaMenosRecomendada"></p>
                 </div>
                 <div class="kpi">
-                    <p class="titulo">Categoria mais procurada</p>
-                    <p class="dadoKpi">SUV</p>
+                    <p class="titulo">Categoria mais procurada:</p>
+                    <p class="dadoKpi" id="kpiCategoriaMaisProcurada"></p>
                 </div>
             </div>
 
@@ -92,6 +99,54 @@
 
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
+    // kpiUsuariosRecentes
+    function coletarDadosKpiUsuariosRecentes() {
+        fetch('/dashboard/cadastradosUltimaSemana', { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    kpiUsuariosRecentes.innerHTML = `${resposta[0].total_usuarios} usuários`
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    // kpiMarcaMenosRecomendada
+    function coletarDadosKpiMarcaMenosRecomendada() {
+        fetch('/dashboard/marcaMenosRecomendada', { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    kpiMarcaMenosRecomendada.innerHTML = `${resposta[0].marca}`
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    // kpiCategoriaMaisProcurada
+    function coletarDadosKpiCategoriaMaisProcurada() {
+        fetch('/dashboard/categoriaMaisRecomendada', { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    kpiCategoriaMaisProcurada.innerHTML = `${resposta[0].categoria} com ${resposta[0].total_recomendacoes} recomendações`
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
     // Gráfico 1
     function colerDadosGrafico1() {
         var respostaSim = 0;
@@ -100,7 +155,6 @@
         fetch('/dashboard/historicoVeicularSim', { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     respostaSim = resposta[0].quantidadeSim
                 });
             } else {
@@ -114,7 +168,6 @@
         fetch('/dashboard/historicoVeicularNao', { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     respostaNao = resposta[0].quantidadeNao
                     plotarGrafico1(respostaSim, respostaNao)
 
@@ -147,15 +200,11 @@
     }
 
     // Gráfico 2
-
-
-
     function colerDadosGrafico2() {
 
         fetch('/dashboard/visitantesQueMaisPreencheram', { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     plotarGrafico2(resposta)
                 });
             } else {
@@ -204,7 +253,6 @@
         fetch('/dashboard/marcaMaisRecomendada', { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     plotarGrafico3(resposta)
                 });
             } else {

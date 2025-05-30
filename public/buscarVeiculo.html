@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="css/body.css">
+    <link rel="stylesheet" href="css/estruturaLogado.css">
+    <link rel="stylesheet" href="css/buscarVeiculo.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="navBarLateral">
+            <div>
+                <img id="logo" src="./imagens/veezyBranco.png" alt="">
+                <p>Seja bem vindo,</p>
+                <p><span id="b_usuario"> </span>!</p>
+
+            </div>
+            <div>
+                <div class="botao">
+                    <img src="./imagens/dashboardIcone.png" alt="dashboardIcone">
+                    <p>Dashboard</p>
+                </div>
+                <div class="botao selecionado">
+                    <img src="./imagens/searchIcon.png" alt="icone">
+                    <p>Buscar</p>
+                </div>
+                <div class="botao">
+                    <img src="./imagens/carIcon.png" alt="icone">
+                    <p>Veiculos</p>
+                </div>
+            </div>
+            <div>
+                <div class="botao">
+                    <img src="../imagens/logoutIcone.svg" alt="icone">
+                    <p>Sair</p>
+                </div>
+            </div>
+        </div>
+        <div class="conteudo">
+            <div class="titulo-conteudo">
+                <h2>Busque o seu veiculo!</h2>
+            </div>
+            <div>
+                <div onclick="acao()" class="btn">Clique aqui</div>
+
+                <div class="modal">
+                    <div class="navbarModal">
+                        <div class="sair">
+                            <div onclick="fechar()" class="fechar">X</div>
+                        </div>
+                        <div class="titulo">
+                            <h3>Preencha as informações a seguir</h1>
+                        </div>
+                    </div>
+                    <div class="perguntas">
+                        <p>Qual será o principal uso do veículo?</p>
+                        <select id="select_uso" name="select_uso">
+                            <option value="">Selecione</option>
+                            <option value="urbano">Uso urbano (cidade)</option>
+                            <option value="rodovia">Viagens / rodovias</option>
+                            <option value="misto">Uso misto (cidade e estrada)</option>
+                            <option value="trabalho">Trabalho / transporte de carga</option>
+                            <option value="lazer">Lazer / finais de semana</option>
+                        </select>
+
+                        <p>Qual a distância média do trajeto diário?</p>
+                        <select id="select_trajeto" name="select_trajeto">
+                            <option value="">Selecione</option>
+                            <option value="curto">Até 10 km</option>
+                            <option value="medio">Entre 10 e 30 km</option>
+                            <option value="longo">Mais de 30 km</option>
+                        </select>
+
+                        <p>Qual tipo de combustível você prefere?</p>
+                        <select id="select_combustivel" name="select_combustivel">
+                            <option value="">Selecione</option>
+                            <option value="flex">Flex (etanol/gasolina)</option>
+                            <option value="gasolina">Gasolina</option>
+                            <option value="etanol">Etanol</option>
+                            <option value="diesel">Diesel</option>
+                            <option value="eletrico">Elétrico</option>
+                            <option value="hibrido">Híbrido</option>
+                        </select>
+
+                        <p>Você tem preferência por câmbio manual ou automático?</p>
+                        <select id="select_cambio" name="select_cambio">
+                            <option value="">Selecione</option>
+                            <option value="manual">Manual</option>
+                            <option value="automatico">Automático</option>
+                            <option value="indiferente">Indiferente</option>
+                        </select>
+
+                        <p>Quantas pessoas costumam andar no carro com frequência?</p>
+                        <select id="select_passageiros" name="select_passageiros">
+                            <option value="">Selecione</option>
+                            <option value="1">Apenas o motorista</option>
+                            <option value="2">Duas pessoas</option>
+                            <option value="3-4">Três a quatro pessoas</option>
+                            <option value="5+">Cinco ou mais</option>
+                        </select>
+
+                        <p>Qual o seu orçamento aproximado para compra?</p>
+                        <select id="select_orcamento" name="select_orcamento">
+                            <option value="">Selecione</option>
+                            <option value="30000">Até R$30.000</option>
+                            <option value="50000">R$30.001 a R$50.000</option>
+                            <option value="80000">R$50.001 a R$80.000</option>
+                            <option value="120000">R$80.001 a R$120.000</option>
+                            <option value="1000000">Acima de R$120.000</option>
+                        </select>
+
+                        <p>Economia ou desempenho?</p>
+                        <select id="select_prioridade" name="select_prioridade">
+                            <option value="">Selecione</option>
+                            <option value="economia">Economia</option>
+                            <option value="desempenho">Desempenho</option>
+                            <option value="equilibrado">Equilíbrio entre os dois</option>
+                        </select>
+                        <br>
+                        <button onclick="pesquisarCarro()" class="buscarVeiculo">Solicitar busca de veículo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    function acao() {
+        let modal = document.querySelector('.modal')
+
+        modal.style.display = 'block';
+    }
+    function fechar() {
+        let modal = document.querySelector('.modal')
+
+        modal.style.display = 'none';
+    }
+
+    function pesquisarCarro() {
+        var uso = select_uso.value
+        var trajeto = select_trajeto.value
+        var combustivel = select_combustivel.value
+        var cambio = select_cambio.value
+        var passageiros = select_passageiros.value
+        var orcamento = select_orcamento.value
+        var prioridade = select_prioridade.value
+
+        if (uso == '' || trajeto == '' || combustivel == '' || cambio == '' || passageiros == '' || orcamento == '' || prioridade == '') {
+            alert('Todos os campos devem ser preenchidos')
+        }else{
+            var informacoes = [uso, trajeto, combustivel, cambio, passageiros, orcamento, prioridade]
+            console.log(informacoes)
+        }
+
+
+    }
+</script>
+
+</html>
