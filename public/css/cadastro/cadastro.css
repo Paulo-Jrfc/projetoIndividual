@@ -1,72 +1,76 @@
 .login {
-    width: 80%;
-    height: 630px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    border: 1px solid var(--corPrincipal);
-    border-radius: 15px;
-    margin-top: 120px;
-    margin-bottom: 120px;
+  width: 70%;
+  height: 65%;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  border-radius: 15px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+  margin-top: 6.5%;
 }
-
-
 
 .slogan {
-    width: 35%;
-    height: 100%;
-    background-color: lightblue;
-    text-align: center;
-    color: var(--corPrincipal);
-    border-radius: 15px 0 0 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  width: 35%;
+  background-color: #001050;
+  text-align: center;
+  color: white;
+  border-radius: 15px 0 0 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-.slogan p {
-    margin-top: -25px;
+.slogan img{
+    width: 100%;
 }
-
 
 .formulario {
-    width: 65%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px 0;
+  overflow-y: auto;
+  max-height: 90vh;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
-.formulario p {
-    margin-top: -25px;
+.formulario h1,
+.formulario p{
+    margin: 0;
 }
 
 .campo {
-    width: 70%;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
 }
 
-.campo span {
-    color: var(--corPrincipal);
-    margin-top: 10px;
-}
 
 .campo input,
-select {
-    height: 30px;
+.campo select {
     width: 100%;
-    margin-bottom: 15px;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: 1px solid var(--corPrincipal);
-    outline: none;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.3s;
 }
 
+
+
 .formulario .botao {
-    width: 70%;
-    height: 30px;
+  width: 70%;
+  height: 35px;
+  margin-top: 10px;
+  background-color: var(--corPrincipal);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
 }

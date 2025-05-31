@@ -35,7 +35,7 @@
                 <a href="#">Resultados adquiridos</a>
                 <a href="#">Login/Cadastre-se</a>
             </div>
-            <img src="https://logodownload.org/wp-content/uploads/2014/04/chevrolet-logo-0.png" alt="Logo" class="logo">
+            <img src="imagens/veezyAzul.png" alt="Logo" class="logo">
         </div>
     </div>
 
@@ -59,11 +59,12 @@
                         <span>Senha:</span>
                         <input id="senha_input" type="password" placeholder="******">
                     </div>
-                    <button class="botao" onclick="entrar()">Entrar</button>
+                    <button class="botao" onclick="entrar(), acao()">Entrar</button>
+                    <p id="linkCadastro">Não possui cadastro? <a href="cadastro.html">Cadastre-se</a></p>
                 </div>
 
                 <div id="div_aguardar" class="loading-div">
-                    <img src="./assets/circle-loading.gif" id="loading-gif">
+                    <img src="./imagens/Iphone-spinner-2.gif" id="loading-gif">
                 </div>
 
                 <div id="div_erros_login"></div>
@@ -71,16 +72,17 @@
         </div>
     </div>
 
-    <!--footer inicio-->
-
-    <!--footer fim-->
 
 </body>
 
 </html>
 
 <script>
+    function acao() {
+        var loadingGif = document.querySelector('.loading-div')
 
+        loadingGif.style.display = 'flex';
+    }
 
     function entrar() {
 
