@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="principal">
         <div class="navBarLateral">
             <div>
                 <img id="logo" src="./imagens/veezyBranco.png" alt="">
@@ -20,7 +20,7 @@
                 <p><span id="b_usuario"> </span>!</p>
 
             </div>
-           <div>
+            <div>
                 <a href="dashboard.html">
                     <div class="botao">
                         <img src="./imagens/dashboardIcone.png" alt="dashboardIcone">
@@ -43,7 +43,7 @@
             <div>
                 <a href="index.html">
                     <div class="botao">
-                        <img src="../imagens/logoutIcone.svg" alt="icone">
+                        <img src="./imagens/logoutIcone.svg" alt="icone">
                         <p>Sair</p>
                     </div>
                 </a>
@@ -54,6 +54,13 @@
                 <h2>Busque o seu veiculo!</h2>
             </div>
             <div>
+                <p>Descubra o carro perfeito para você! Já pensou em ter um veículo que realmente combine com o seu
+                    estilo de vida? Agora ficou fácil! Com a nossa simulação personalizada, você encontra o carro ideal
+                    de forma rápida, simples e gratuita. Simule agora mesmo e veja quais modelos atendem suas
+                    necessidades, preferências e orçamento! Não importa se você procura economia, conforto, tecnologia
+                    ou espaço — temos uma sugestão feita sob medida para você. Dê o primeiro passo rumo à melhor escolha
+                    da sua vida sobre rodas. O carro dos seus sonhos pode estar a um clique de distância!
+                </p>
                 <div onclick="acao()" class="btn">Clique aqui</div>
 
                 <div class="modal">
@@ -131,6 +138,7 @@
                         </select>
                         <br>
                         <button onclick="pesquisarCarro()" class="buscarVeiculo">Solicitar busca de veículo</button>
+                        <div id="resposta"></div>
                     </div>
                 </div>
             </div>
@@ -150,7 +158,7 @@
         modal.style.display = 'none';
     }
 
-    function pesquisarCarro() {
+    async function pesquisarCarro() {
         var uso = select_uso.value
         var trajeto = select_trajeto.value
         var combustivel = select_combustivel.value
@@ -161,13 +169,30 @@
 
         if (uso == '' || trajeto == '' || combustivel == '' || cambio == '' || passageiros == '' || orcamento == '' || prioridade == '') {
             alert('Todos os campos devem ser preenchidos')
-        }else{
-            var informacoes = [uso, trajeto, combustivel, cambio, passageiros, orcamento, prioridade]
-            console.log(informacoes)
+        } else {
+
+            const response = await fetch('/bobia/pergunta', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    uso: select_uso.value, trajeto: select_trajeto.value, combustivel: select_combustivel.value,
+                    cambio: select_cambio.value, passageiros: select_passageiros.value, orcamento: select_orcamento.value, prioridade: select_prioridade.value
+                })
+            });
+            const data = await response.json();
+            console.log(data)
+
+
+            document.getElementById('resposta').innerText = JSON.stringify(data);
+
+            
+
         }
 
-
     }
+
 </script>
 
 </html>
