@@ -1,6 +1,8 @@
 const { GoogleGenAI } = require("@google/genai");
 const chatIA = new GoogleGenAI({ apiKey: process.env.MINHA_CHAVE });
 
+var iaGeminiModal = require("../models/iaGeminiModal");
+
 async function pergunta(req, res) {
     try {
         // gerando conteúdo com base na pergunta
@@ -8,6 +10,7 @@ async function pergunta(req, res) {
             model: "gemini-2.0-flash",
             contents:
                 `Gere uma recomendação de veículo adequada ao cenário brasileiro, levando em conta o perfil de uso descrito abaixo.
+                 O veiculo já deve ter sido emplacado no brasil pelo o menos 1 unidade.
 
                     As características do visitante são:
                     - Uso principal: ${req.body.uso}
@@ -34,7 +37,7 @@ async function pergunta(req, res) {
                         "capacidade_porta_malas": "em litros, neste formato: 521 litros",
                         "numero_ocupantes": "5",
                         "preco_medio_mercado": "Valor médio formato desejado: 70000",
-                        "tipo_combustivel": "Flex, Etanol, Gasolina, Elétrico, Hibrido",
+                        "tipo_combustivel": "Flex, Etanol, Gasolina, Elétrico, Hibrido, Diesel",
                         "justificativa": "deverá ter 355 caracteres"
                     }
 
@@ -47,10 +50,9 @@ async function pergunta(req, res) {
         const resposta = (await modeloIA).text;
         const tokens = (await modeloIA).usageMetadata;
 
-        console.log(resposta);
         console.log("Uso de Tokens:", tokens);
-        rsp = resposta.replace(/```json |```/g,'');
-        rsp = rsp.replace('json','');
+        rsp = resposta.replace(/```json |```/g, '');
+        rsp = rsp.replace('json', '');
         console.log(rsp)
 
         const respostaJson = JSON.parse(rsp);
@@ -64,6 +66,43 @@ async function pergunta(req, res) {
     }
 }
 
+function cadastrarVeiculo(req, res) {
+    var marca = req.body.marcaServer;
+    var modelo = req.body.modeloServer;
+    var ano = req.body.anoServer;
+    var categoria = req.body.categoriaServer;
+    var motor = req.body.motorServer;
+    var potencia = req.body.potenciaServer;
+    var cambio = req.body.cambioServer;
+    var consumoMedio = req.body.consumo_medioServer;
+    var capacidadePortaMalas = req.body.capacidade_porta_malasServer;
+    var numeroOcupantes = req.body.numero_ocupantesServer;
+    var precoMedioMercado = req.body.preco_medio_mercadoServer;
+    var combustivel = req.body.tipo_combustivelServer;
+    var justificativa = req.body.justificativaServer;
+    var fkVisitante = req.body.fkVisitanteServer;
+
+    // Validações básicas
+    if (!marca || !modelo || !ano || !categoria || !motor || !potencia || !cambio ||
+        !consumoMedio || !capacidadePortaMalas || !numeroOcupantes || !precoMedioMercado ||
+        !combustivel || !justificativa || !fkVisitante
+    ) {
+        res.status(400).send("Há campos indefinidos no cadastro de veículo!");
+    } else {
+        // Passe os valores como parâmetro e vá para o arquivo bobiaModal.js
+        bobiaModal.cadastrarVeiculo(marca, modelo, ano, categoria, motor, potencia, cambio,
+            consumoMedio, capacidadePortaMalas, numeroOcupantes,
+            precoMedioMercado, combustivel, justificativa, fkVisitante
+        ).then(function (resultado) {
+            res.json(resultado);
+        }).catch(function (erro) {
+            console.log("\nErro ao cadastrar veículo:", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+    }
+}
+
 module.exports = {
-    pergunta
+    pergunta,
+    cadastrarVeiculo
 }

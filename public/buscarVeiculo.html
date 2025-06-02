@@ -126,7 +126,10 @@
                             <option value="50000">R$30.001 a R$50.000</option>
                             <option value="80000">R$50.001 a R$80.000</option>
                             <option value="120000">R$80.001 a R$120.000</option>
-                            <option value="1000000">Acima de R$120.000</option>
+                            <option value="300000">R$120.001 a R$300.000</option>
+                            <option value="600000">R$300.001 a R$600.000</option>
+                            <option value="800000">R$600.001 a R$800.000</option>
+                            <option value="999999">R$800.001 a R$1.000.000</option>
                         </select>
 
                         <p>Economia ou desempenho?</p>
@@ -170,7 +173,6 @@
         if (uso == '' || trajeto == '' || combustivel == '' || cambio == '' || passageiros == '' || orcamento == '' || prioridade == '') {
             alert('Todos os campos devem ser preenchidos')
         } else {
-
             const response = await fetch('/bobia/pergunta', {
                 method: 'POST',
                 headers: {
@@ -183,12 +185,55 @@
             });
             const data = await response.json();
             console.log(data)
-
-
             document.getElementById('resposta').innerText = JSON.stringify(data);
 
             
 
+            fetch("/bobia/cadastrarVeiculo", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
+                    marcaServer: data.marca,
+                    modeloServer: data.modelo,
+                    anoServer: data.ano,
+                    categoriaServer: data.categoria,
+                    motorServer: data.motor,
+                    potenciaServer: data.potencia,
+                    cambioServer: data.cambio,
+                    consumo_medioServer: data.consumo_medio,
+                    capacidade_porta_malasServer: data.capacidade_porta_malas,
+                    numero_ocupantesServer: data.numero_ocupantes,
+                    preco_medio_mercadoServer: data.preco_medio_mercado,
+                    tipo_combustivelServer: data.tipo_combustivel,
+                    justificativaServer: data.justificativa,
+                    fkVisitanteServer: sessionStorage.ID_USUARIO
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+
+                    if (resposta.ok) {
+                        cardErro.style.display = "block";
+
+                        // mensagem_erro.innerHTML ="Inserção realizado com sucesso! Redirecionando para tela de Veiculos...";
+                        resposta.innerHTML += `<br><br> INSERÇÃO REALIZADA COM SUCESSO`
+
+                        setTimeout(() => {
+                            window.location = "login.html";
+                        }, "2000");
+
+                    } else {
+                        throw `Houve um erro ao tentar realizar o cadastro!`;
+                    }
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+
+                });
         }
 
     }

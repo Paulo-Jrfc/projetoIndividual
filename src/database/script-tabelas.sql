@@ -19,17 +19,33 @@ CREATE TABLE visitante (
     CONSTRAINT chkPrimeiroCarro CHECK(primeiroCarro IN ('Sim', 'Não'))
 );
 
-CREATE TABLE veiculoRecomendado (
+CREATE TABLE veiculorecomendado (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    marca VARCHAR(45),
-    modelo VARCHAR(45),
-    ano CHAR(4),
+    marca VARCHAR(45) NOT NULL,
+    modelo VARCHAR(45) NOT NULL,
+    ano CHAR(4) NOT NULL,
     categoria VARCHAR(20),
+    motor VARCHAR(50),
+    potencia VARCHAR(100),
+    cambio VARCHAR(100),
+    consumoMedio VARCHAR(100),
+    capacidadePortaMalas VARCHAR(45),
+    numeroOcupantes INT,
+    precoMedioMercado DECIMAL(10, 2),
+    combustivel VARCHAR(20), 
+    justificativa VARCHAR(355),
     dtRecomendacao DATETIME NOT NULL,
     fkVisitante INT,
+    
     CONSTRAINT chkCategoria CHECK (categoria IN ('SUV', 'Sedan', 'Hatch', 'Picape', 'Minivan', 'Crossover', 'Conversível', 'Coupé')),
+    CONSTRAINT chkCambio CHECK (cambio IN ('Manual', 'Automático')),
+    CONSTRAINT chkCombustivel CHECK (combustivel IN ('Flex', 'Etanol', 'Gasolina', 'Elétrico', 'Hibrido', 'Diesel')),
     CONSTRAINT fkVeiculoVisitante FOREIGN KEY (fkVisitante) REFERENCES visitante(id)
 );
+
+SELECT * FROM veiculorecomendado;
+
+
 
 INSERT INTO visitante (nome, dtNascimento, email, senha, primeiroCarro, dtCadastro) VALUES
 ('Lucas Silva',     '1995-04-12', 'lucas.silva@mail.com',      '123', 'Sim', NOW()),
@@ -53,27 +69,9 @@ INSERT INTO visitante (nome, dtNascimento, email, senha, primeiroCarro, dtCadast
 ('Larissa Freitas', '1994-03-07', 'larissa.freitas@mail.com',  '123', 'Sim', NOW()),
 ('Vinícius Costa',  '1988-10-23', 'vinicius.costa@mail.com',   '123', 'Não', NOW());
 
-INSERT INTO veiculoRecomendado (marca, modelo, ano, categoria, dtRecomendacao, fkVisitante) VALUES
-('Toyota',      'Corolla',       '2020', 'Sedan',       NOW(),  1),
-('Honda',       'HR-V',          '2021', 'SUV',         NOW(),  2),
-('Ford',        'Ka',            '2019', 'Hatch',       NOW(),  3),
-('Chevrolet',   'Onix',          '2022', 'Hatch',       NOW(),  4),
-('Volkswagen',  'T-Cross',       '2021', 'SUV',         NOW(),  5),
-('Hyundai',     'HB20',          '2020', 'Hatch',       NOW(),  6),
-('Nissan',      'Kicks',         '2023', 'SUV',         NOW(),  7),
-('Renault',     'Sandero',       '2019', 'Hatch',       NOW(),  8),
-('Fiat',        'Argo',          '2022', 'Hatch',       NOW(),  9),
-('Jeep',        'Renegade',      '2021', 'Crossover',   NOW(), 10),
-('Peugeot',     '208',           '2020', 'Hatch',       NOW(), 11),
-('Citroën',     'C3',            '2018', 'Hatch',       NOW(), 12),
-('Kia',         'Sportage',      '2022', 'SUV',         NOW(), 13),
-('Mitsubishi',  'ASX',           '2019', 'SUV',         NOW(), 14),
-('Subaru',      'Forester',      '2021', 'SUV',         NOW(), 15),
-('BMW',         'X1',            '2023', 'SUV',         NOW(), 16),
-('Audi',        'A3',            '2020', 'Sedan',       NOW(), 17),
-('Mercedes-Benz','GLA',          '2022', 'SUV',         NOW(), 18),
-('Volkswagen',  'Nivus',         '2021', 'Crossover',   NOW(), 19),
-('Chevrolet',   'Tracker',       '2023', 'SUV',         NOW(), 20);
+
+
+
 
 
 
