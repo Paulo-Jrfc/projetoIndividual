@@ -8,6 +8,11 @@
   color: var(--corPrincipalFonte);
 }
 
+#imagemCarroAleatorio{
+  width: 910px;
+  height: 510px;
+}
+
 .sobrecarros {
   margin-top: 120px;
   height: 750px;

@@ -6,11 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./css/body.css">
   <link rel="stylesheet" href="./css/navbar.css">
-  <link rel="stylesheet" href="./css/home/conteudo.css">
+  <link rel="stylesheet" href="./css/index.css">
   <title>Document</title>
 </head>
 
-<body>
+<body onload="gerarCarroAleatório()">
   <div class="navbar">
     <div class="navbar-esquerda">
       <span>Menu</span>
@@ -29,11 +29,11 @@
   </div>
   <div class="conteudo">
     <div class="informacao">
-      <h1 class="marca-carro">VOLKSVAGEN</h1>
-      <p class="modelo-carro">GOLF GTI</p>
+      <h1 id="marca_carro">BMW</h1>
+      <p id="modelo_carro"></p>
     </div>
     <div>
-      <img src="./imagens/veiculosHome/bmwx6MCompetition.png" alt="">
+      <img src="" id="imagemCarroAleatorio" alt="">
     </div>
   </div>
   <div class="sobrecarros">
@@ -165,7 +165,8 @@
         de recomendações automotivas. Com o tempo, percebi que muitas pessoas enfrentam dificuldades na hora de escolher
         o veículo ideal, mesmo tendo um orçamento definido. A variedade de modelos, marcas e configurações disponíveis
         no mercado pode gerar insegurança e indecisão, já que essa escolha envolve fatores como tipo de uso, consumo,
-        manutenção, espaço, estilo de vida e até preferências pessoais. Diante disso, decidi transformar essa experiência
+        manutenção, espaço, estilo de vida e até preferências pessoais. Diante disso, decidi transformar essa
+        experiência
         em um projeto chamado *Veezy* — uma plataforma que tem como objetivo facilitar o processo de decisão na compra
         de um carro. Por meio de um formulário simples e intuitivo, o usuário responde perguntas objetivas sobre seu
         perfil e necessidades. Com base nessas informações, o sistema utiliza uma inteligência artificial da google
@@ -182,8 +183,27 @@
     </div>
   </div>
 
-
-
 </body>
 
 </html>
+<script>
+  function gerarCarroAleatório() {
+    var modeloCarro = ['M2 Coupé', 'M3 Competition', 'X6 M Competition', 
+                       'X2 M35i xDrive', 'X3 M 50 xDrive', 'X7 M60i', 'iX M60']
+    
+    var imagemCarro = ['./imagens/bmwMSeries/bmwM2Coupe.png',
+      './imagens/bmwMSeries/bmwM3Competition.png',
+      './imagens/bmwMSeries/bmwx6MCompetition.png',
+      './imagens/bmwMSeries/bmwX2M35i.png',
+      './imagens/bmwMSeries/bmwX3M50xDrive.png',
+      './imagens/bmwMSeries/bmwX7M60i.png',
+      './imagens/bmwMSeries/bmwiXM60.png'];
+
+    var numeroAletorio = Math.floor(Math.random() * 7);
+    console.log(numeroAletorio)
+
+    imagemCarroAleatorio.src = imagemCarro[numeroAletorio];
+    modelo_carro.innerHTML = `${modeloCarro[numeroAletorio]}`;
+  }
+
+</script>
