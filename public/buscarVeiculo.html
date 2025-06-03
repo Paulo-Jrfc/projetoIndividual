@@ -173,7 +173,7 @@
         if (uso == '' || trajeto == '' || combustivel == '' || cambio == '' || passageiros == '' || orcamento == '' || prioridade == '') {
             alert('Todos os campos devem ser preenchidos')
         } else {
-            const response = await fetch('/bobia/pergunta', {
+            const response = await fetch('/iaGemini/pergunta', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -189,7 +189,7 @@
 
             
 
-            fetch("/bobia/cadastrarVeiculo", {
+            fetch("/iaGemini/cadastrarVeiculo", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

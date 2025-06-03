@@ -89,8 +89,8 @@ function cadastrarVeiculo(req, res) {
     ) {
         res.status(400).send("Há campos indefinidos no cadastro de veículo!");
     } else {
-        // Passe os valores como parâmetro e vá para o arquivo bobiaModal.js
-        bobiaModal.cadastrarVeiculo(marca, modelo, ano, categoria, motor, potencia, cambio,
+        // Passe os valores como parâmetro e vá para o arquivo iaGeminiModal.js
+        iaGeminiModal.cadastrarVeiculo(marca, modelo, ano, categoria, motor, potencia, cambio,
             consumoMedio, capacidadePortaMalas, numeroOcupantes,
             precoMedioMercado, combustivel, justificativa, fkVisitante
         ).then(function (resultado) {

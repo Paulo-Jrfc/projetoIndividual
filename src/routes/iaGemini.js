@@ -1,15 +1,15 @@
 var express = require("express");
 var router = express.Router();
 
-var bobiaController = require("../controllers/iaGeminiController");
+var iaGeminiController = require("../controllers/iaGeminiController");
 
-//Recebendo os dados do html e direcionando para a função cadastrar de bobiaController.js
+//Recebendo os dados do html e direcionando para a função cadastrar de iaGeminiController.js
 router.post("/pergunta", function (req, res) {
-    bobiaController.pergunta(req, res);
+    iaGeminiController.pergunta(req, res);
 })
 
 router.post("/cadastrarVeiculo", function (req, res) {
-    bobiaController.cadastrarVeiculo(req, res);
+    iaGeminiController.cadastrarVeiculo(req, res);
 })
 
 

@@ -13,8 +13,7 @@
 
 </head>
 
-<body onload="colerDadosGrafico1(), colerDadosGrafico2(), colerDadosGrafico3(), coletarDadosKpiUsuariosRecentes(), 
-coletarDadosKpiMarcaMenosRecomendada(), coletarDadosKpiCategoriaMaisProcurada()">
+<body onload="colerDadosKpiGrafico()">
     <div class="principal">
         <div class="navBarLateral">
             <div>
@@ -100,7 +99,7 @@ coletarDadosKpiMarcaMenosRecomendada(), coletarDadosKpiCategoriaMaisProcurada()"
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
     // kpiUsuariosRecentes
-    function coletarDadosKpiUsuariosRecentes() {
+    function colerDadosKpiGrafico() {
         fetch('/dashboard/cadastradosUltimaSemana', { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
@@ -113,10 +112,8 @@ coletarDadosKpiMarcaMenosRecomendada(), coletarDadosKpiCategoriaMaisProcurada()"
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
-    }
 
-    // kpiMarcaMenosRecomendada
-    function coletarDadosKpiMarcaMenosRecomendada() {
+        // kpiMarcaMenosRecomendada
         fetch('/dashboard/marcaMenosRecomendada', { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
@@ -129,10 +126,8 @@ coletarDadosKpiMarcaMenosRecomendada(), coletarDadosKpiCategoriaMaisProcurada()"
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
-    }
 
-    // kpiCategoriaMaisProcurada
-    function coletarDadosKpiCategoriaMaisProcurada() {
+        // kpiCategoriaMaisProcurada
         fetch('/dashboard/categoriaMaisRecomendada', { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
@@ -145,10 +140,8 @@ coletarDadosKpiMarcaMenosRecomendada(), coletarDadosKpiCategoriaMaisProcurada()"
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
-    }
 
-    // Gráfico 1
-    function colerDadosGrafico1() {
+        // Gráfico 1
         var respostaSim = 0;
         var respostaNao = 0;
 
@@ -180,6 +173,35 @@ coletarDadosKpiMarcaMenosRecomendada(), coletarDadosKpiCategoriaMaisProcurada()"
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
 
+        // Gráfico 2
+        fetch('/dashboard/visitantesQueMaisPreencheram', { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    plotarGrafico2(resposta)
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+        // Gráfico 3
+        fetch('/dashboard/marcaMaisRecomendada', { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    plotarGrafico3(resposta)
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+        
+
     }
 
 
@@ -199,23 +221,6 @@ coletarDadosKpiMarcaMenosRecomendada(), coletarDadosKpiCategoriaMaisProcurada()"
         });
     }
 
-    // Gráfico 2
-    function colerDadosGrafico2() {
-
-        fetch('/dashboard/visitantesQueMaisPreencheram', { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta) {
-                    plotarGrafico2(resposta)
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
-
-    }
 
 
     function plotarGrafico2(resposta) {
@@ -243,26 +248,6 @@ coletarDadosKpiMarcaMenosRecomendada(), coletarDadosKpiCategoriaMaisProcurada()"
                 }
             }
         });
-    }
-
-
-
-    // Gráfico 3
-    function colerDadosGrafico3() {
-
-        fetch('/dashboard/marcaMaisRecomendada', { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta) {
-                    plotarGrafico3(resposta)
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
-
     }
 
     function plotarGrafico3(resposta) {
