@@ -45,7 +45,7 @@
         <div class="alerta_erro">
             <div class="card_erro" id="cardErro">
                 <span id="mensagem_erro"></span>
-            </div>
+        </div>
         </div>
         <div class="principal">
             <h2>Olá de volta!</h2>
@@ -59,8 +59,10 @@
                         <span>Senha:</span>
                         <input id="senha_input" type="password" placeholder="******">
                     </div>
-                    <button class="botao" onclick="entrar(), acao()">Entrar</button>
-                    <p id="linkCadastro">Não possui cadastro? <a href="cadastro.html">Cadastre-se</a></p>
+                    <div class="campo">
+                        <button class="botao" onclick="entrar(), acao()">Entrar</button>
+                        <p id="linkCadastro">Não possui cadastro? <a href="cadastro.html">Cadastre-se</a></p>
+                    </div>
                 </div>
 
                 <div id="div_aguardar" class="loading-div">
@@ -72,7 +74,11 @@
         </div>
     </div>
 
+    <dialog id="modalLogin">
+        <div class="container">
 
+        </div>
+    </dialog>
 </body>
 
 </html>
@@ -84,8 +90,12 @@
         loadingGif.style.display = 'flex';
     }
 
+    
+
     function entrar() {
 
+        let modal = document.getElementById('modalLogin')
+    
         var emailVar = email_input.value;
         var senhaVar = senha_input.value;
 
@@ -125,9 +135,13 @@
                     sessionStorage.ID_USUARIO = json.id;
                     sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
 
+                    //Chama o modal
+
                     setTimeout(function () {
                         window.location = "./dashboard.html";
                     }, 1000); // apenas para exibir o loading
+
+                    modal.showModal()   
 
                 });
 

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Buscar Veiculo</title>
 
     <link rel="stylesheet" href="css/body.css">
     <link rel="stylesheet" href="css/estruturaLogado.css">
@@ -53,16 +53,24 @@
             <div class="titulo-conteudo">
                 <h2>Busque o seu veiculo!</h2>
             </div>
-            <div>
-                <p>Descubra o carro perfeito para você! Já pensou em ter um veículo que realmente combine com o seu
-                    estilo de vida? Agora ficou fácil! Com a nossa simulação personalizada, você encontra o carro ideal
-                    de forma rápida, simples e gratuita. Simule agora mesmo e veja quais modelos atendem suas
-                    necessidades, preferências e orçamento! Não importa se você procura economia, conforto, tecnologia
-                    ou espaço — temos uma sugestão feita sob medida para você. Dê o primeiro passo rumo à melhor escolha
-                    da sua vida sobre rodas. O carro dos seus sonhos pode estar a um clique de distância!
-                </p>
-                <div onclick="acao()" class="btn">Clique aqui</div>
+            <div class="propagandaVeezy">
+                <div class="informacoesEImagem">
+                    <div class="informacoes">
+                        <h2>Está na hora de dirigir a sua escolha!</h2>
 
+                        <div class="caracteristica">
+                            <h3>Em menos de 2 minutos!</h3>
+                            <p>Responda apenas 8 perguntas rápidas e receba uma recomendação personalizada com a ajuda da inteligência artificial do Veezy.</p>
+                        </div>
+                        
+                        <div class="caracteristica">
+                            <h3>Gerado por Gemini</h3>
+                            <p>Com base no seu perfil, analisamos consumo, conforto, manutenção e custo-benefício para indicar o veículo ideal para sua realidade.</p>
+                        </div>
+                        <div onclick="acao()" class="btn">Responder formulário</div>
+                    </div>
+                    <div class="wallpaper"><img src="imagens/wallpaperBmwM4cs.jpg" alt=""></div>
+                </div>
                 <div class="modal">
                     <div class="navbarModal">
                         <div class="sair">
@@ -187,7 +195,7 @@
             console.log(data)
             document.getElementById('resposta').innerText = JSON.stringify(data);
 
-            
+
 
             fetch("/iaGemini/cadastrarVeiculo", {
                 method: "POST",
