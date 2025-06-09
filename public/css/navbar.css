@@ -1,3 +1,7 @@
+a{
+    text-decoration: none;
+}
+
 .navbar {
     position: fixed;
     top: 0;
@@ -19,13 +23,23 @@
     color: var(--corPrincipalFonte);
 }
 
-.navbar-esquerda span{
+.navbar-esquerda .btnLogin{
+    width: 100px;
+    background-color: var(--corPrincipal);
     margin: 20px;
     font-weight: bold;
+    border-radius: 15px;
+    color: white;
+    align-items: center;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    transition: 0.3s;
 }
-.navbar-esquerda span:hover{
+
+.navbar-esquerda .btnLogin:hover{
     cursor: pointer;
-    border-bottom: 2px solid var(--corPrincipal);
+    transform: scale(1.05);
 }
 
 .navbar-direita {
@@ -65,7 +79,6 @@
     height: 35px;
 }
 
-/* Espaço para o conteúdo */
 .content {
     padding-top: 70px;
 }

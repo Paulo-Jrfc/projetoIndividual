@@ -1,6 +1,6 @@
 .conteudo {
   width: 100%;
-  height: 650px;
+  height: 100vh;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -10,17 +10,22 @@
 }
 
 #imagemCarroAleatorio{
-  width: 910px;
-  height: 510px;
+  width: 1100px;
+  height: 610px;
+  display: none;
 }
 
+
 .sobrecarros {
-  margin-top: 120px;
   height: 750px;
   width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+#historiaCarrosBrasil{
+  padding-top: 50px;
 }
 
 .sobrecarros .titulo h1{
@@ -31,6 +36,11 @@
 .sobrecarros .titulo h3{
   text-align: center;
   margin-top: -20px;
+}
+
+#comoTudoComecou{
+  margin-top: 120px;
+  padding-top: 30px;
 }
 
 
@@ -57,8 +67,6 @@
   align-items: center;
 }
 
-
-
 .conteudoSobreCarros .imagem img {
   margin: 25px;
   width: 290px;
@@ -69,6 +77,10 @@
 
 .conteudoSobreCarros .texto p{
   width: 90%;
+}
+
+#textoCorrido{
+  margin-top: 200px;
 }
 
 .sobrecarros .cards{
@@ -100,13 +112,18 @@
   border-radius: 5px;
 }
 
+#dirijaSuaEscolha{
+  margin-top: 200px;
+  padding-top: 60px;
+}
 
 .simuleAqui{
   width: 100%;
   height: 300px;
   background-color: var(--corPrincipal);
-  margin-top: -350px;
+  margin-top: -300px;
 }
+
 .simuleAqui .conteudo{
   width: 70%;
   height: 100%;
@@ -122,21 +139,23 @@
 .simuleAqui .conteudo p{
   margin: 0;
 }
-
-.simuleAqui .conteudo .button{
+.simuleAqui .conteudo h2{
+  margin: 0;
+}
+.simuleAqui .conteudo a .button{
   background-color: white;
   color: var(--corPrincipal);
   width: 300px;
   height: 40px;
   border-radius: 10px;
-  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: background-color 0.3s ease, transform 0.2s;
+  margin: 20px auto;
 }
 
-.simuleAqui .conteudo .button:hover{
+.simuleAqui .conteudo a .button:hover{
   transform: scale(1.05);
   cursor: pointer;
 }
@@ -145,5 +164,10 @@ footer{
   margin-top: 0;
   width: 100%;
   height: 100px;
-  background-color: #F4F4F4;
+}
+
+.simuleAqui .conteudo a{
+  text-decoration: none;
+  color: inherit;
+  margin: 0 auto;
 }

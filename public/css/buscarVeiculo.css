@@ -1,18 +1,16 @@
 /* Página buscar veiculo */
 .propagandaVeezy{
     width: 90%;
-    height: 50%;
+    height: 60%;
     margin: auto;
     display: flex;
     flex-direction: column;
-
-
     background-color: #f4f4f4;
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
 }
 
 .informacoesEImagem{
-    height: 100%;
+    height: 500px;
     display: flex;
     flex-direction: row;
 }
@@ -66,7 +64,7 @@
     transform: scale(1.05);
 }
 
-/* Modal */
+/* Modal - Formulário veiculo */
 .modal {
     margin-top: 1.2%;
     background-color: #F4F4F4;
@@ -165,3 +163,6 @@
     transform: scale(1.05);
 }
 
+#botaoDashboard{
+    display: none;
+}

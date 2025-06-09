@@ -1,0 +1,85 @@
+.titulo-conteudo {
+    flex: 0 0 auto;
+
+}
+
+#buscarVeiculo {
+    width: 400px;
+    padding: 12px;
+    background-color: var(--corPrincipal);
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 47.5%;
+}
+
+#buscarVeiculo:hover {
+    transform: scale(1.05);
+}
+
+#botaoDashboard{
+    display: none;
+}
+
+.containerVeiculos {
+    flex: 1 1 auto;
+    height: 95%;
+    overflow-y: auto; 
+    padding: 10px;
+    box-sizing: border-box;
+    background: #fafafa;
+}
+
+#veiculosRecomendadosContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.veiculo-card {
+    background-color: #f4f4f4;
+    border: 1px solid var(--corPrincipal);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.veiculo-card:hover {
+    transform: scale(1.005);
+}
+
+.veiculo-card h3 {
+    font-size: 28px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 6px;
+}
+.veiculo-card p{
+    margin: 2px auto;
+}
+
+.veiculo-card p strong {
+    font-weight: bold;
+    font-size: 20px;
+    color: var(--corPrincipal);
+}
+
+.veiculo-card p:hover{
+    transform: scale(1.015);
+}
+
+.precoMedioVeiculo{
+    width: 500px;
+    height: 20px;
+    padding: 6px;
+    background-color: var(--corPrincipal);
+    font-weight: bold;
+    margin: auto;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+}

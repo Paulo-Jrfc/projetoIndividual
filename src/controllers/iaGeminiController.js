@@ -3,6 +3,7 @@ const chatIA = new GoogleGenAI({ apiKey: process.env.MINHA_CHAVE });
 
 var iaGeminiModal = require("../models/iaGeminiModal");
 
+
 async function pergunta(req, res) {
     try {
         // gerando conteúdo com base na pergunta
@@ -102,7 +103,18 @@ function cadastrarVeiculo(req, res) {
     }
 }
 
+function buscarVeiculo(req, res) {
+    const idUsuario = req.body.idUsuario;
+        iaGeminiModal.buscarVeiculo(idUsuario).then((resultado) => { 
+        console.log('ESTOU NO IAGEMINIcontroller.JS')
+        res.status(200).json(resultado);
+        console.log(resultado)
+    });
+}
+
+
 module.exports = {
     pergunta,
-    cadastrarVeiculo
+    cadastrarVeiculo,
+    buscarVeiculo
 }

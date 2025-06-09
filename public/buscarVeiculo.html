@@ -21,12 +21,14 @@
 
             </div>
             <div>
-                <a href="dashboard.html">
-                    <div class="botao">
-                        <img src="./imagens/dashboardIcone.png" alt="dashboardIcone">
-                        <p>Dashboard</p>
-                    </div>
-                </a>
+                <div id="botaoDashboard">
+                    <a href="dashboard.html">
+                        <div class="botao">
+                            <img src="./imagens/dashboardIcone.png" alt="dashboardIcone">
+                            <p>Dashboard</p>
+                        </div>
+                    </a>
+                </div>
                 <a href="buscarVeiculo.html">
                     <div class="botao selecionado">
                         <img src="./imagens/searchIcon.png" alt="icone">
@@ -60,7 +62,7 @@
 
                         <div class="caracteristica">
                             <h3>Em menos de 2 minutos!</h3>
-                            <p>Responda apenas 8 perguntas rápidas e receba uma recomendação personalizada com a ajuda da inteligência artificial do Veezy.</p>
+                            <p>Responda apenas 8 perguntas rápidas e receba uma recomendação personalizada com a ajuda da inteligência artificial da Veezy.</p>
                         </div>
                         
                         <div class="caracteristica">
@@ -149,7 +151,6 @@
                         </select>
                         <br>
                         <button onclick="pesquisarCarro()" class="buscarVeiculo">Solicitar busca de veículo</button>
-                        <div id="resposta"></div>
                     </div>
                 </div>
             </div>
@@ -158,14 +159,20 @@
 </body>
 <script>
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    const idUsuario = sessionStorage.ID_USUARIO;
+
+    const botaoDashboard = document.getElementById('botaoDashboard')
+
+    if(idUsuario == 22){
+        botaoDashboard.style.display = 'block'
+    }
+
     function acao() {
         let modal = document.querySelector('.modal')
-
         modal.style.display = 'block';
     }
     function fechar() {
         let modal = document.querySelector('.modal')
-
         modal.style.display = 'none';
     }
 
@@ -193,18 +200,12 @@
             });
             const data = await response.json();
             console.log(data)
-            document.getElementById('resposta').innerText = JSON.stringify(data);
-
-
-
             fetch("/iaGemini/cadastrarVeiculo", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    // crie um atributo que recebe o valor recuperado aqui
-                    // Agora vá para o arquivo routes/usuario.js
                     marcaServer: data.marca,
                     modeloServer: data.modelo,
                     anoServer: data.ano,
@@ -220,19 +221,14 @@
                     justificativaServer: data.justificativa,
                     fkVisitanteServer: sessionStorage.ID_USUARIO
                 }),
+
             })
                 .then(function (resposta) {
-                    console.log("resposta: ", resposta);
 
                     if (resposta.ok) {
-                        cardErro.style.display = "block";
-
-                        // mensagem_erro.innerHTML ="Inserção realizado com sucesso! Redirecionando para tela de Veiculos...";
-                        resposta.innerHTML += `<br><br> INSERÇÃO REALIZADA COM SUCESSO`
-
                         setTimeout(() => {
-                            window.location = "login.html";
-                        }, "2000");
+                            window.location = "veiculosRecomendados.html";
+                        }, "800");
 
                     } else {
                         throw `Houve um erro ao tentar realizar o cadastro!`;
@@ -240,12 +236,9 @@
                 })
                 .catch(function (resposta) {
                     console.log(`#ERRO: ${resposta}`);
-
                 });
         }
-
     }
-
 </script>
 
 </html>

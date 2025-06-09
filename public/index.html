@@ -7,24 +7,27 @@
   <link rel="stylesheet" href="./css/body.css">
   <link rel="stylesheet" href="./css/navbar.css">
   <link rel="stylesheet" href="./css/index.css">
-  <title>HOME - VEEZY</title>
+  <title>VEEZY | Home</title>
 </head>
 
 <body onload="gerarCarroAleatório()">
   <div class="navbar">
     <div class="navbar-esquerda">
-      <span>Menu</span>
+      <a href="login.html">
+        <div class="btnLogin">Login</div>
+      </a>
     </div>
 
     <div class="navbar-direita">
       <div class="navbar-links">
-        <a href="#">Início</a>
-        <a href="#">Como Funciona</a>
-        <a href="#">Encontre o carro ideal</a>
-        <a href="#">Resultados adquiridos</a>
-        <a href="login.html">Login/Cadastre-se</a>
+        <a href="index.html">Início</a>
+        <a href="index.html#historiaCarrosBrasil">História dos carros no Brasil</a>
+        <a href="index.html#comoTudoComecou">Como tudo começou? </a>
+        <a href="index.html#dirijaSuaEscolha">Dirija a sua escolha</a>
       </div>
-      <img src="./imagens/veezyAzul.png" alt="Logo" class="logo">
+      <a href="index.html">
+        <img src="./imagens/veezyAzul.png" alt="Logo" class="logo">
+      </a>
     </div>
   </div>
   <div class="conteudo">
@@ -32,14 +35,14 @@
       <h1 id="marca_carro">BMW</h1>
       <p id="modelo_carro"></p>
     </div>
-    <div>
+    <div id="imagemAleatoria">
       <img src="" id="imagemCarroAleatorio" alt="">
     </div>
   </div>
-  
-  <div class="sobrecarros">
+
+  <div class="sobrecarros" id="historiaCarrosBrasil">
     <div class="titulo">
-      <h1>A HISTORIA DOS CARROS NO BRASIL</h1>
+      <h1>A HISTÓRIA DOS CARROS NO BRASIL</h1>
     </div>
     <div class="conteudoSobreCarros">
       <div class="imagem">
@@ -58,7 +61,7 @@
     <div class="conteudoSobreCarros">
       <div class="texto">
         <p>O Romi-Isetta foi o primeiro carro fabricado integralmente no Brasil, lançado em 1956 pela Indústria Romi,
-          sediada em Santa Bárbara d’Oeste (SP). Baseado no modelo italiano Isetta, era um carro urbano compacto, de
+          sediada em Santa Bárbara d´Oeste (SP). Baseado no modelo italiano Isetta, era um carro urbano compacto, de
           baixo custo e fácil manutenção, ideal para o cenário econômico do pós-guerra. Com um design incomum e porta
           frontal, tornou-se símbolo de inovação na indústria nacional. Foram produzidas cerca de 3.000 unidades no
           país, marcando o início da produção automobilística brasileira. Atualmente, o Romi-Isetta é considerado item
@@ -71,7 +74,7 @@
     </div>
 
   </div>
-  <div class="sobrecarros">
+  <div class="sobrecarros"  id="comoTudoComecou">
     <div class="titulo">
       <h1>COMO TUDO COMEÇOU?</h1>
       <P>A historia dos carros na vida do Paulo Junior</P>
@@ -105,9 +108,7 @@
     </div>
   </div>
   <div class="sobrecarros">
-    <div class="titulo">
-      <h1>COMO TUDO COMEÇOU?</h1>
-      <h3>A historia dos carros na vida do Paulo Junior</h3>
+    <div id="textoCorrido">
       <p>Em janeiro de 2024, realizei um dos maiores sonhos da minha vida: adquirir meu primeiro carro. Essa conquista
         representou muito mais do que apenas a compra de um bem material — foi o resultado de anos de desejo, motivação
         e esforço pessoal. Desde o início do meu primeiro emprego, tracei como meta essa realização, e com planejamento
@@ -121,6 +122,8 @@
         negócio, com potencial de crescimento e profissionalização, unindo realização pessoal com visão empreendedora.
       </p>
     </div>
+
+
     <div class="cards">
       <div class="card">
         <img src="./imagens/celtaPrata.jpg" alt="celtaPrata">
@@ -157,7 +160,7 @@
     </div>
   </div>
 
-  <div class="sobrecarros">
+  <div class="sobrecarros" id="dirijaSuaEscolha">
     <div class="titulo">
       <h1>VEEZY</h1>
       <h3>Dirija a sua escolha!</h3>
@@ -183,9 +186,11 @@
       <p>Vamos encontrar seu carro?</p>
       <h2>Plataforma inteligente que conecta você ao carro ideal com base no seu perfil e estilo de vida, unindo
         tecnologia e paixão automotiva para simplificar sua escolha.</h2>
-      <div class="button">
-        <h3>Encontre o seu veiculo</h3>
-      </div>
+      <a href="login.html">
+        <div class="button">
+          <h3>Encontre o seu veiculo</h3>
+        </div>
+      </a>
     </div>
   </div>
   <footer>
@@ -196,6 +201,7 @@
 </html>
 <script>
   function gerarCarroAleatório() {
+    const imagem = document.getElementById('imagemCarroAleatorio')
     var modeloCarro = ['M2 Coupé', 'M3 Competition', 'X6 M Competition',
       'X2 M35i xDrive', 'X3 M 50 xDrive', 'X7 M60i', 'iX M60']
 
@@ -210,6 +216,7 @@
     var numeroAletorio = Math.floor(Math.random() * 7);
     console.log(numeroAletorio)
 
+    imagem.style.display = 'block'
     imagemCarroAleatorio.src = imagemCarro[numeroAletorio];
     modelo_carro.innerHTML = `${modeloCarro[numeroAletorio]}`;
   }

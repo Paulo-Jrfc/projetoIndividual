@@ -4,29 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Veiculos Recomendados</title>
 
     <link rel="stylesheet" href="css/body.css">
     <link rel="stylesheet" href="css/estruturaLogado.css">
-    <link rel="stylesheet" href="css/buscarVeiculo.css">
+    <link rel="stylesheet" href="css/veiculosRecomendados.css">
 </head>
 
-<body>
+<body onload="buscarVeiculo()">
     <div class="principal">
         <div class="navBarLateral">
             <div>
                 <img id="logo" src="./imagens/veezyBranco.png" alt="">
                 <p>Seja bem vindo,</p>
                 <p><span id="b_usuario"> </span>!</p>
-
             </div>
-           <div>
-                <a href="dashboard.html">
-                    <div class="botao">
-                        <img src="./imagens/dashboardIcone.png" alt="dashboardIcone">
-                        <p>Dashboard</p>
-                    </div>
-                </a>
+            <div>
+                <div id="botaoDashboard">
+                    <a href="dashboard.html">
+                        <div class="botao">
+                            <img src="./imagens/dashboardIcone.png" alt="dashboardIcone">
+                            <p>Dashboard</p>
+                        </div>
+                    </a>
+                </div>
                 <a href="buscarVeiculo.html">
                     <div class="botao">
                         <img src="./imagens/searchIcon.png" alt="icone">
@@ -53,8 +54,83 @@
             <div class="titulo-conteudo">
                 <h2>Veiculos recomendados para o seu perfil</h2>
             </div>
+            <div class="containerVeiculos">
+                <a href="buscarVeiculo.html">
+                    <div id="buscarVeiculo">EM BUSCA DA PRIMEIRA RECOMENDAÇÃO</div>
+                </a>
+                <div id="veiculosRecomendadosContainer">
+
+                </div>
+            </div>
         </div>
 </body>
 <script>
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    const idUsuario = sessionStorage.ID_USUARIO;
+
+    const botaoDashboard = document.getElementById('botaoDashboard')
+
+    if (idUsuario == 22) {
+        botaoDashboard.style.display = 'block'
+    }
+
+    function buscarVeiculo() {
+        fetch('/iaGemini/buscarVeiculo', {
+            method: 'POST',
+            cache: 'no-store',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ idUsuario: sessionStorage.ID_USUARIO })
+        })
+            .then(response => response.json())
+            .then(resposta => {
+                console.log("Dados recebidos:", resposta);
+                exibirVeiculos(resposta)
+            })
+            .catch(error => console.error('Erro ao buscar veículos:', error));
+    }
+
+    function exibirVeiculos(listaVeiculos) {
+        const listaVeiculosRecomendados = document.getElementById('veiculosRecomendadosContainer');
+        var soma = 0;
+
+        const buscarVeiculo = document.getElementById('buscarVeiculo')
+        if (listaVeiculos.length > 0) {
+            buscarVeiculo.style.display = 'none'
+        }
+        var veiculos = '';
+
+        if (listaVeiculos.length > 0) {
+            for (let i = 0; i < listaVeiculos.length; i++) {
+                const veiculo = listaVeiculos[i];
+                soma += Number(veiculo.precoMedioMercado)
+            }
+            precoMedio = soma / listaVeiculos.length;
+            veiculos += `<div class="precoMedioVeiculo">Preço médio dos veiculos recomendados: R$${precoMedio.toFixed(0)},00</div>`
+        }
+
+        for (let i = 0; i < listaVeiculos.length; i++) {
+            const veiculo = listaVeiculos[i];
+
+            veiculos += `
+            <div class="veiculo-card">
+                <h3>${veiculo.marca} ${veiculo.modelo} (${veiculo.ano})</h3>
+                <p><strong>Categoria:</strong> ${veiculo.categoria}</p>
+                <p><strong>Motor:</strong> ${veiculo.motor}</p>
+                <p><strong>Potência:</strong> ${veiculo.potencia}</p>
+                <p><strong>Câmbio:</strong> ${veiculo.cambio}</p>
+                <p><strong>Consumo médio:</strong> ${veiculo.consumoMedio}</p>
+                <p><strong>Porta-malas:</strong> ${veiculo.capacidadePortaMalas} litros</p>
+                <p><strong>Ocupantes:</strong> ${veiculo.numeroOcupantes}</p>
+                <p><strong>Preço médio:</strong> R$${Number(veiculo.precoMedioMercado).toFixed(0)},00</p>
+                <p><strong>Combustível:</strong> ${veiculo.combustivel}</p>
+                <p><strong>Justificativa:</strong> ${veiculo.justificativa}</p>
+                <p><strong>Data da recomendação:</strong> ${new Date(veiculo.dtRecomendacao).toLocaleString()}</p>
+            </div>
+        `;
+        }
+        listaVeiculosRecomendados.innerHTML = veiculos;
+    }
+
 </script>

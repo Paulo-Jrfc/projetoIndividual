@@ -64,7 +64,7 @@
                     <p class="dadoKpi" id="kpiMarcaMenosRecomendada"></p>
                 </div>
                 <div class="kpi">
-                    <p class="titulo">Categoria mais procurada:</p>
+                    <p class="titulo">Categoria mais recomendada:</p>
                     <p class="dadoKpi" id="kpiCategoriaMaisProcurada"></p>
                 </div>
             </div>
@@ -204,7 +204,6 @@
 
     }
 
-
     function plotarGrafico1(respostaSim, respostaNao) {
         var grafico2 = new Chart(document.getElementById('grafico1').getContext('2d'), {
             type: 'doughnut',
@@ -220,8 +219,6 @@
             }
         });
     }
-
-
 
     function plotarGrafico2(resposta) {
         var nomes = [resposta[0].nome.split(" ")[0], resposta[1].nome.split(" ")[0], resposta[2].nome.split(" ")[0]]
@@ -251,7 +248,6 @@
     }
 
     function plotarGrafico3(resposta) {
-
         var quantidadeRecomendada = [resposta[0].total_recomendacoes, resposta[1].total_recomendacoes, resposta[2].total_recomendacoes, resposta[3].total_recomendacoes, resposta[4].total_recomendacoes];
         var marcaRecomendada = [resposta[0].marca.split(" ")[0], resposta[1].marca.split(" ")[0], resposta[2].marca.split(" ")[0], resposta[3].marca.split(" ")[0], resposta[4].marca.split(" ")[0]]
 

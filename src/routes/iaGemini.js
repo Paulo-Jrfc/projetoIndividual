@@ -12,5 +12,10 @@ router.post("/cadastrarVeiculo", function (req, res) {
     iaGeminiController.cadastrarVeiculo(req, res);
 })
 
+router.post("/buscarVeiculo", function (req, res) {
+    console.log('ESTOU NO IAGEMINI.JS')
+    iaGeminiController.buscarVeiculo(req, res);
+})
+
 
 module.exports = router;

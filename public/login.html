@@ -24,18 +24,21 @@
 
     <div class="navbar">
         <div class="navbar-esquerda">
-            <span>Menu</span>
+            <a href="login.html">
+                <div class="btnLogin">Login</div>
+            </a>
         </div>
 
         <div class="navbar-direita">
             <div class="navbar-links">
-                <a href="#">Início</a>
-                <a href="#">Como Funciona</a>
-                <a href="#">Encontre o carro ideal</a>
-                <a href="#">Resultados adquiridos</a>
-                <a href="#">Login/Cadastre-se</a>
+                <a href="index.html">Início</a>
+                <a href="index.html#historiaCarrosBrasil">História dos carros no Brasil</a>
+                <a href="index.html#comoTudoComecou">Como tudo começou? </a>
+                <a href="index.html#dirijaSuaEscolha">Dirija a sua escolha</a>
             </div>
-            <img src="imagens/veezyAzul.png" alt="Logo" class="logo">
+            <a href="index.html">
+                <img src="./imagens/veezyAzul.png" alt="Logo" class="logo">
+            </a>
         </div>
     </div>
 
@@ -45,7 +48,7 @@
         <div class="alerta_erro">
             <div class="card_erro" id="cardErro">
                 <span id="mensagem_erro"></span>
-        </div>
+            </div>
         </div>
         <div class="principal">
             <h2>Olá de volta!</h2>
@@ -66,17 +69,16 @@
                 </div>
 
                 <div id="div_aguardar" class="loading-div">
-                    <img src="./imagens/Iphone-spinner-2.gif" id="loading-gif">
+
                 </div>
 
-                <div id="div_erros_login"></div>
             </div>
         </div>
     </div>
 
     <dialog id="modalLogin">
         <div class="container">
-
+            <img src="./imagens/gif-loading.gif" id="loading-gif">
         </div>
     </dialog>
 </body>
@@ -85,17 +87,12 @@
 
 <script>
     function acao() {
-        var loadingGif = document.querySelector('.loading-div')
-
-        loadingGif.style.display = 'flex';
+        var loadingGif = document.getElementById('modalLogin')
+        loadingGif.showModal()
     }
 
-    
-
     function entrar() {
-
         let modal = document.getElementById('modalLogin')
-    
         var emailVar = email_input.value;
         var senhaVar = senha_input.value;
 
@@ -109,9 +106,6 @@
             setInterval(sumirMensagem, 5000)
         }
 
-        console.log("FORM LOGIN: ", emailVar);
-        console.log("FORM SENHA: ", senhaVar);
-
         fetch("/usuarios/autenticar", {
             method: "POST",
             headers: {
@@ -122,11 +116,8 @@
                 senhaServer: senhaVar
             })
         }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
-
             if (resposta.ok) {
                 console.log(resposta);
-
                 resposta.json().then(json => {
                     console.log(json);
                     console.log(JSON.stringify(json));
@@ -135,14 +126,10 @@
                     sessionStorage.ID_USUARIO = json.id;
                     sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
 
-                    //Chama o modal
-
                     setTimeout(function () {
-                        window.location = "./dashboard.html";
-                    }, 1000); // apenas para exibir o loading
-
-                    modal.showModal()   
-
+                        window.location = "./buscarVeiculo.html";
+                    }, 1000);
+                    modal.showModal()
                 });
 
             } else {

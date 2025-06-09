@@ -30,7 +30,6 @@
     width: 100%;
 }
 
-
 .formulario .campo {
     display: flex;
     flex-direction: column;
@@ -104,15 +103,16 @@
 }
 
 #modalLogin{
-    width: 500px;
-    height: 200px;
-    background-color: #c53030;
+    width: 240px;
+    height: 125px;
+}
+
+#modalLogin img{
+    width: 100%;
+    height: 100%;
 }
 
 #modalLogin .container{
     width: 100%;
     height: 100%;
 }
-
-
-

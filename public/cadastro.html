@@ -19,29 +19,26 @@
   <!--header inicio-->
   <div class="navbar">
     <div class="navbar-esquerda">
-      <span>Menu</span>
+      <a href="login.html">
+        <div class="btnLogin">Login</div>
+      </a>
     </div>
 
     <div class="navbar-direita">
       <div class="navbar-links">
-        <a href="#">Início</a>
-        <a href="#">Como Funciona</a>
-        <a href="#">Encontre o carro ideal</a>
-        <a href="#">Resultados adquiridos</a>
-        <a href="#">Login/Cadastre-se</a>
+        <a href="index.html">Início</a>
+        <a href="index.html#historiaCarrosBrasil">História dos carros no Brasil</a>
+        <a href="index.html#comoTudoComecou">Como tudo começou? </a>
+        <a href="index.html#dirijaSuaEscolha">Dirija a sua escolha</a>
       </div>
-      <img src="imagens/veezyAzul.png" alt="Logo" class="logo">
+      <a href="index.html">
+        <img src="./imagens/veezyAzul.png" alt="Logo" class="logo">
+      </a>
     </div>
   </div>
   <!--header fim-->
-
+  
   <div class="login">
-    <div class="alerta_erro">
-      <div class="card_erro" id="cardErro">
-        <span id="mensagem_erro"></span>
-      </div>
-    </div>
-
     <div class="slogan">
       <div>
         <h2>Seja bem vindo a VEEZY!</h2>
@@ -51,65 +48,52 @@
         <img src="./imagens/golfGTIMK8.png " alt="LOGO">
       </div>
     </div>
-    <form class="formulario">
-      <h1>Criar a sua conta</h1>
-      <p>Preencha os seus dados</p>
+    <div class="formularioCadastro">
+      <form class="formulario">
+        <h1>Criar a sua conta</h1>
+        <p>Preencha os seus dados</p>
 
-      <div class="campo">
-        <span>Nome:</span>
-        <input id="nome_input" type="text" placeholder="Seu nome" />
-      </div>
-      <div class="campo">
-        <span>Data de Nascimento:</span>
-        <input id="dataNascimento_input" type="date" />
-      </div>
-      <div class="campo">
-        <span>E-mail:</span>
-        <input id="email_input" type="text" placeholder="meuemail@provedor.com" />
-      </div>
-      <div class="campo">
-        <span>Senha:</span>
-        <input id="senha_input" type="password" placeholder="******" />
-      </div>
-      <div class="campo">
-        <span>Confirmação da Senha:</span>
-        <input id="confirmacao_senha_input" type="password" placeholder="******" />
-      </div>
-      <div class="campo">
-        <span>Já possuiu um veiculo?</span>
-        <select id="primeiroCarro_select">
-          <option>Não</option>
-          <option>Sim</option>
-        </select>
-      </div>
+        <div class="campo">
+          <span>Nome:</span>
+          <input id="nome_input" type="text" placeholder="Seu nome" />
+        </div>
+        <div class="campo">
+          <span>E-mail:</span>
+          <input id="email_input" type="text" placeholder="meuemail@provedor.com" />
+        </div>
+        <div class="campo">
+          <span>Senha:</span>
+          <input id="senha_input" type="password" placeholder="******" />
+        </div>
+        <div class="campo">
+          <span>Confirmação da Senha:</span>
+          <input id="confirmacao_senha_input" type="password" placeholder="******" />
+        </div>
+        <div class="campo">
+          <span>Já possuiu um veiculo?</span>
+          <select id="primeiroCarro_select">
+            <option>Não</option>
+            <option>Sim</option>
+          </select>
+        </div>
+      </form>
       <button class="botao" onclick="cadastrar()">Cadastrar</button>
-    </form>
+    </div>
 
-
-    <div id="div_erros_login"></div>
-
-
+    <dialog id="modalRedirecionamento">
+      <div class="container">Cadastro realizado com sucesso! Redirecionando para tela de Login...</div>
+    </dialog>
   </div>
-
-  <!--footer inicio-->
-
-  <!--footer fim-->
 </body>
 
 </html>
 
 <script>
-
-  // Array para armazenar empresas cadastradas para validação de código de ativação 
   let listaEmpresasCadastradas = [];
+  const modalDialog = document.querySelector('#modalRedirecionamento')
 
   function cadastrar() {
-    // aguardar();
-
-    //Recupere o valor da nova input pelo nome do id
-    // Agora vá para o método fetch logo abaixo
     var nomeVar = nome_input.value;
-    var dtNascimento = dataNascimento_input.value
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
@@ -136,12 +120,8 @@
       return false;
     }
 
-
-
-    // Verificando se há algum campo em branco
     if (
       nomeVar == '' ||
-      dtNascimento == '' ||
       emailVar == '' ||
       senhaVar == '' ||
       confirmacaoSenhaVar == '' ||
@@ -150,8 +130,6 @@
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
         "(Mensagem de erro para todos os campos em branco)";
-
-
       return false;
     } else if (nomeVar.length <= 1) {
       alert('Insira um nome com mais de 1 digito')
@@ -171,17 +149,13 @@
       return false;
     }
 
-    // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
         nomeServer: nomeVar,
-        dataNascimentoServer: dtNascimento,
         emailServer: emailVar,
         senhaServer: senhaVar,
         primeiroCarroServer: primeiroCarro
@@ -191,14 +165,10 @@
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-          cardErro.style.display = "block";
-
-          mensagem_erro.innerHTML =
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
           setTimeout(() => {
             window.location = "login.html";
           }, "2000");
+          modalDialog.showModal();
 
         } else {
           throw `Houve um erro ao tentar realizar o cadastro!`;
@@ -206,9 +176,7 @@
       })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
-
       });
-
     return false;
   }
 </script>
